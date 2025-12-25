@@ -3,16 +3,23 @@
   "scripts": {
     "dev": "bun run --hot src/index.ts",
     "build": "bun build ./src/index.ts --compile --outfile server",
-    "start": "./server"
+    "start": "./server",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
-    "better-auth": "^1.2.7",
+    "better-auth": "^1.4.7",
     "hono": "^4.7.4",
     "ioredis": "^5.6.0",
-    "pg": "^8.13.3"
+    "pg": "^8.13.3",
+    "@simplewebauthn/server": "^10.0.0",
+    "stripe": "^17.0.0"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/pg": "^8.11.11"
+    "@types/pg": "^8.11.11",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
+    "better-sqlite3": "^12.4.1"
   }
 }

@@ -2,6 +2,14 @@
 node_modules/
 .env
 .env.*
+!.env.example
 better-auth_migrations/*
 server
 .DS_Store
+
+# Bun build artifacts
+*.bun-build
+
+# Test artifacts
+coverage/
+.vitest/

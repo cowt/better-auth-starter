@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { auth } from './lib/auth'
 import { logger } from 'hono/logger'
+import { handleStripeWebhook } from './lib/stripe-webhook'
 const app = new Hono()
 
 app.use(logger())
@@ -15,6 +16,18 @@ app.get('/health', (c) => {
     timestamp: new Date().toISOString()
   })
 })
+
+app.post("/api/stripe/webhook", async (c) => {
+	const rawBody = await c.req.raw.text();
+	const signature = c.req.raw.headers.get("stripe-signature");
+	const authCtx = await auth.$context;
+	await handleStripeWebhook({
+		rawBody,
+		signature,
+		authContext: authCtx,
+	});
+	return c.json({ received: true });
+});
 
 /**
  * Better Auth routes, see docs before changing
