@@ -14,7 +14,12 @@ import { emailAllowDeny } from "./plugins/email-allow-deny";
 import { passkey } from "./plugins/passkey";
 import { stripe } from "./plugins/stripe";
 
-const redis = new Redis(`${process.env.REDIS_URL}?family=0`)
+const redis = new Redis(process.env.REDIS_URL!, {
+	family: 0,
+	tls: {
+		rejectUnauthorized: false
+	}
+})
    .on("error", (err) => {
      console.error("Redis connection error:", err)
    })
